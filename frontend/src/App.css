@@ -156,6 +156,7 @@ th {
 
   td {
     display: block;
+    text-align: left;
     padding: 6px 0;
     border: none;
     font-size: 14px;
