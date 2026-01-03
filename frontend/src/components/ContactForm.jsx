@@ -11,21 +11,30 @@ const ContactForm = ({ addContact }) => {
     message: "",
   });
 
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const validate = () => {
-    if (!form.name.trim()) return "Name is required";
-    if (!form.phone.trim()) return "Phone number is required";
-    if (!/^\d{10}$/.test(form.phone))
-      return "Phone number must be exactly 10 digits";
-    if (
-      form.email &&
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)
-    )
-      return "Invalid email format";
-    return "";
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const validateField = (name, value) => {
+    let error = "";
+
+    if (name === "name" && !value.trim()) {
+      error = "Name is required";
+    }
+
+    if (name === "phone") {
+      if (!value.trim()) error = "Phone number is required";
+      else if (!/^\d{10}$/.test(value))
+        error = "Phone number must be exactly 10 digits";
+    }
+
+    if (name === "email" && value && !emailRegex.test(value)) {
+      error = "Invalid email format";
+    }
+
+    setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
   const handleChange = (e) => {
@@ -34,47 +43,43 @@ const ContactForm = ({ addContact }) => {
     if (name === "phone" && !/^\d*$/.test(value)) return;
 
     setForm({ ...form, [name]: value });
-    setError("");
+    validateField(name, value);
     setSuccess("");
   };
 
+  const isFormValid =
+    form.name.trim() &&
+    /^\d{10}$/.test(form.phone) &&
+    (!form.email || emailRegex.test(form.email)) &&
+    Object.values(errors).every((e) => !e);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const validationError = validate();
-    if (validationError) {
-      setError(validationError);
-      return;
-    }
+    if (!isFormValid) return;
 
     try {
       setLoading(true);
 
       const res = await fetch(API_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
-      if (!res.ok) {
-        throw new Error("Failed to save contact");
-      }
+      if (!res.ok) throw new Error("Failed to save contact");
 
       const savedContact = await res.json();
-
       addContact(savedContact);
+
       setForm({ name: "", email: "", phone: "", message: "" });
+      setErrors({});
       setSuccess("Contact added successfully ✅");
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
+    } catch {
+      setErrors({ submit: "Something went wrong. Try again." });
     } finally {
       setLoading(false);
     }
   };
-
-  const isValid = validate() === "";
 
   return (
     <form className="card" onSubmit={handleSubmit}>
@@ -83,8 +88,8 @@ const ContactForm = ({ addContact }) => {
         <h2>Add Contact</h2>
       </div>
 
-      {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
+      {errors.submit && <p className="error">{errors.submit}</p>}
 
       <input
         name="name"
@@ -92,6 +97,7 @@ const ContactForm = ({ addContact }) => {
         value={form.name}
         onChange={handleChange}
       />
+      {errors.name && <p className="error">{errors.name}</p>}
 
       <input
         name="email"
@@ -99,6 +105,7 @@ const ContactForm = ({ addContact }) => {
         value={form.email}
         onChange={handleChange}
       />
+      {errors.email && <p className="error">{errors.email}</p>}
 
       <input
         name="phone"
@@ -107,6 +114,7 @@ const ContactForm = ({ addContact }) => {
         onChange={handleChange}
         maxLength={10}
       />
+      {errors.phone && <p className="error">{errors.phone}</p>}
 
       <textarea
         name="message"
@@ -115,7 +123,7 @@ const ContactForm = ({ addContact }) => {
         onChange={handleChange}
       />
 
-      <button disabled={!isValid || loading}>
+      <button disabled={!isFormValid || loading}>
         {loading ? "Saving..." : "Submit"}
       </button>
     </form>
