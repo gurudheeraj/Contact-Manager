@@ -130,11 +130,11 @@ th {
 }
 
 /* Responsive table */
-@media (max-width: 600px) {
-  .card {
+/* Mobile responsive contact list */
+@media (max-width: 768px) {
+  .card{
     padding: 16px;
   }
-
   table,
   thead,
   tbody,
@@ -142,6 +142,7 @@ th {
   td,
   tr {
     display: block;
+    width: 100%;
   }
 
   thead {
@@ -149,14 +150,33 @@ th {
   }
 
   tr {
-    margin-bottom: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background: #fff;
   }
 
   td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
     border: none;
-    padding: 6px 0;
+    font-size: 14px;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
+  }
+
+  .delete-btn {
+    width: 100%;
+    margin-top: 8px;
   }
 }
+
 .success {
   color: #16a34a;
   font-size: 14px;
