@@ -61,10 +61,10 @@ const ContactList = ({ contacts, deleteContact }) => {
         <tbody>
           {sortedContacts.map((c) => (
             <tr key={c._id}>
-              <td>{c.name}</td>
-              <td>{c.email || "-"}</td>
-              <td>{c.phone}</td>
-              <td>{c.message || "-"}</td>
+              <td data-label="Name">{c.name}</td>
+              <td data-label="Email">{c.email || "-"}</td>
+              <td data-label="Phone">{c.phone}</td>
+              <td data-label="Message">{c.message || "-"}</td>
               <td>
                 <button
                   className="delete-btn"
