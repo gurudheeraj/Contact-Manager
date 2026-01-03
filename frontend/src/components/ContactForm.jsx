@@ -64,7 +64,7 @@ const ContactForm = ({ addContact }) => {
 
       const savedContact = await res.json();
 
-      addContact(savedContact); // ✅ update UI with DB data
+      addContact(savedContact);
       setForm({ name: "", email: "", phone: "", message: "" });
       setSuccess("Contact added successfully ✅");
     } catch (err) {

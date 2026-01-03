@@ -220,7 +220,6 @@ select {
   height: 40px;
 }
 
-/* Section titles (Add Contact, Contacts) */
 .section-title {
   display: flex;
   align-items: center;
@@ -244,7 +243,6 @@ select {
   height: 30px;
 }
 
-/* Smooth visual enhancement */
 .section-title h2,.section-title1 h2,
 .app-header h1 {
   transition: transform 0.2s ease;

@@ -21,7 +21,7 @@ const ContactList = ({ contacts, deleteContact }) => {
       );
     }
 
-    return contacts; // default: entered first
+    return contacts; 
   };
 
   const sortedContacts = getSortedContacts();

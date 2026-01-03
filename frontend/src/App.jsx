@@ -9,7 +9,6 @@ const API_URL = "https://contact-manager-exc1.onrender.com/api/contacts";
 function App() {
   const [contacts, setContacts] = useState([]);
 
-  // ✅ Fetch contacts from backend on page load
   useEffect(() => {
     fetchContacts();
   }, []);
@@ -24,13 +23,11 @@ function App() {
     }
   };
 
-  // ✅ Add contact (POST → MongoDB)
   const addContact = (savedContact) => {
   setContacts((prev) => [...prev, savedContact]);
 };
 
 
-  // ✅ Delete contact (DELETE → MongoDB)
   const deleteContact = async (id) => {
     try {
       await fetch(`${API_URL}/${id}`, {
@@ -47,7 +44,6 @@ function App() {
     <div className="page">
       <header className="app-header">
         <div className="title-with-icon">
-          {/* ✅ LOGO UNCHANGED */}
           <img src={contactManager} alt="contact manager" />
           <h1>Contact Manager</h1>
         </div>
