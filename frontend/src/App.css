@@ -245,12 +245,13 @@ select {
 }
 
 /* Smooth visual enhancement */
-.section-title h2,
+.section-title h2,.section-title1 h2,
 .app-header h1 {
   transition: transform 0.2s ease;
 }
 
 .section-title:hover h2,
+.section-title1:hover h2,
 .title-with-icon:hover h1 {
   transform: scale(1.03);
 }
