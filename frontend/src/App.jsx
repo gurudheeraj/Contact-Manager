@@ -56,6 +56,9 @@ function App() {
           deleteContact={deleteContact}
         />
       </div>
+      <footer className="app-footer">
+        &copy; Kambala Guru Dheeraj Reddy
+      </footer>
     </div>
   );
 }
