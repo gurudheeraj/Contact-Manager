@@ -150,29 +150,29 @@ th {
     margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    padding: 10px;
+    padding: 12px;
     background: #fff;
   }
 
   td {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 10px;
+    display: block;
+    padding: 6px 0;
     border: none;
     font-size: 14px;
   }
 
   td::before {
-    content: attr(data-label);
+    content: attr(data-label) ": ";
     font-weight: 600;
     color: #555;
   }
 
   .delete-btn {
     width: 100%;
-    margin-top: 8px;
+    margin-top: 10px;
   }
 }
+
 
 .success {
   color: #16a34a;
