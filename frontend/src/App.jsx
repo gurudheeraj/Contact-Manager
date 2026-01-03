@@ -4,7 +4,7 @@ import ContactList from "./components/ContactList";
 import "./App.css";
 import contactManager from "./assets/contactManager.png";
 
-const API_URL = "http://localhost:5000/api/contacts";
+const API_URL = "https://contact-manager-exc1.onrender.com/api/contacts";
 
 function App() {
   const [contacts, setContacts] = useState([]);
@@ -25,20 +25,10 @@ function App() {
   };
 
   // ✅ Add contact (POST → MongoDB)
-  const addContact = async (contact) => {
-    try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(contact)
-      });
+  const addContact = (savedContact) => {
+  setContacts((prev) => [...prev, savedContact]);
+};
 
-      const savedContact = await res.json();
-      setContacts((prev) => [...prev, savedContact]);
-    } catch (err) {
-      console.error("Failed to add contact", err);
-    }
-  };
 
   // ✅ Delete contact (DELETE → MongoDB)
   const deleteContact = async (id) => {
