@@ -132,9 +132,6 @@ th {
 /* Responsive table */
 /* Mobile responsive contact list */
 @media (max-width: 768px) {
-  .card{
-    padding: 16px;
-  }
   table,
   thead,
   tbody,
