@@ -162,7 +162,7 @@ th {
   }
 
   td::before {
-    content: attr(data-label) ": ";
+    content: attr(data-label);
     font-weight: 600;
     color: #555;
   }
