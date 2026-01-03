@@ -33,6 +33,7 @@ h1 {
 
 /* Shared card styling */
 .card {
+  margin-top: 20px;
   width: 100%;
   max-width: 90%; /* ✅ SAME WIDTH FOR FORM & TABLE */
   background: #ffffff;
